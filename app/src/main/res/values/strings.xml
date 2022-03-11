@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Sample</string>
+    <string name="lbl_add_address">افزودن آدرس</string>
+</resources>
