@@ -2,6 +2,128 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:clipToPadding="false">
+
+    <com.achareh.component.ui.view.InputText
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:validation_type="name"
+            app:strokeWidth="1dp"
+            app:hint="نام"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:maxLength="20"
+            app:strokeColor="@color/border_light"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.achareh.component.ui.view.InputText
+            android:id="@+id/input_family"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:validation_type="name"
+            app:strokeWidth="1dp"
+            app:hint="نام خانوادگی"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            app:strokeColor="@color/border_light"
+            android:maxLength="40"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/input_name"/>
+
+    <com.achareh.component.ui.view.InputText
+            android:id="@+id/input_moblie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:validation_type="mobile"
+            app:strokeWidth="1dp"
+            app:hint="تلفن همراه"
+            android:imeOptions="actionNext"
+            android:maxLength="11"
+            app:strokeColor="@color/border_light"
+            android:layout_marginTop="10dp"
+            android:inputType="phone"
+            app:layout_constraintTop_toBottomOf="@id/input_family"/>
+
+    <com.achareh.component.ui.view.InputText
+            android:id="@+id/input_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:validation_type="phone_number"
+            app:strokeWidth="1dp"
+            app:hint="تلفن ثابت"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:imeOptions="actionNext"
+            app:strokeColor="@color/border_light"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/input_moblie"/>
+
+    <com.achareh.component.ui.view.InputText
+            android:id="@+id/input_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:validation_type="address"
+            app:strokeWidth="1dp"
+            app:hint="آدرس دقیق"
+            app:strokeColor="@color/border_light"
+            android:layout_marginTop="10dp"
+            android:maxLines="3"
+            android:minLines="3"
+            app:layout_constraintTop_toBottomOf="@id/input_phone_number"/>
+
+    <com.achareh.component.ui.view.CTextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/toggle_sex"
+            app:layout_constraintBottom_toBottomOf="@id/toggle_sex"
+            app:layout_constraintStart_toStartOf="parent"
+            app:CFontStyle="bold"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/text_primary"
+            android:text="جنسیت"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggle_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_address"
+            android:layout_marginTop="10dp"
+            app:singleSelection="true"
+            app:checkedButton="@id/male"
+            app:selectionRequired="false">
+
+        <com.achareh.component.ui.view.CButton
+                android:id="@+id/male"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="آقا"/>
+
+        <com.achareh.component.ui.view.CButton
+                android:id="@+id/female"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="خانوم"/>
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+    <com.achareh.component.ui.view.CButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="مرحله بعد"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

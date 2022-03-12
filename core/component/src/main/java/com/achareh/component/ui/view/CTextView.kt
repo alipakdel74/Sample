@@ -35,6 +35,10 @@ class CTextView @JvmOverloads constructor(
         typeface = Typeface.createFromAsset(resources.assets, font)
     }
 
+    fun setFontType(type:FontStyle){
+        setTypeFace(type.ordinal)
+    }
+
     enum class FontStyle { MEDIUM, BOLD }
 
 }

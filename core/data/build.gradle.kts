@@ -1,6 +1,7 @@
 plugins {
     id ("com.android.library")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     kotlin ("android")
 }
 

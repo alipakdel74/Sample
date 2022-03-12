@@ -33,8 +33,8 @@ class AddressFragment : BaseFragment<FragmentAddressBinding>() {
 
     private fun observeAddressList() = vm.addressList.handleResponse(
         onSuccess = {
-            it?.apply {
-                binding.rvAddress.adapter = AddressItem(result!!)
+            it?.result?.apply {
+                binding.rvAddress.adapter = AddressItem(this)
             }
             progress.dismiss()
         },

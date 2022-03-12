@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.viewbinding.ViewBinding
 import com.achareh.component.ui.view.SnackBarBuilder
 import com.achareh.data.network.ResultResponse
@@ -97,5 +99,10 @@ abstract class BaseFragment<b : ViewBinding> : Fragment() {
                 .setDuration(Snackbar.LENGTH_INDEFINITE)
                 .setAction(action).show(requireView())
     }
+
+    fun popUpTo(@IdRes destinationId: Int, inclusive: Boolean = true, saveState: Boolean = false) =
+        NavOptions.Builder()
+            .setPopUpTo(destinationId, inclusive, saveState)
+            .build()
 
 }

@@ -15,5 +15,13 @@
     <fragment android:id="@+id/createAddressFragment"
               android:name="com.achareh.sample.ui.fragment.CreateAddressFragment"
               android:label="CreateAddressFragment"
-              tools:layout="@layout/fragment_create_address"/>
+              tools:layout="@layout/fragment_create_address">
+        <action android:id="@+id/action_createAddressFragment_to_mapFragment"
+                app:destination="@id/mapFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/mapFragment"
+              android:name="com.achareh.sample.ui.fragment.MapFragment"
+              android:label="MapFragment"
+              tools:layout="@layout/fragment_map"/>
 </navigation>
