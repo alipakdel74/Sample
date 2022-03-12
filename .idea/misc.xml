@@ -5,13 +5,17 @@
       <map>
         <entry key="..\:/Android Project/Sample/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/Sample/app/src/main/res/layout/fragment_address.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5051282051282051" />
+        <entry key="app/src/main/res/layout/fragment_create_address.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_address.xml" value="0.5119791666666667" />
+        <entry key="core/component/src/main/res/drawable/sh_sample.xml" value="0.52" />
       </map>
     </option>
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

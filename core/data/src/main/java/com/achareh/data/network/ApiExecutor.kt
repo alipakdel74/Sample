@@ -14,14 +14,14 @@ import java.util.concurrent.TimeoutException
 
 abstract class ApiExecutor {
 
-    protected suspend fun <T> FlowCollector<ApiResponse<T>>.emitApiResponse(request: suspend () -> Response<T>) {
+    protected suspend fun <T> FlowCollector<ResultResponse<T>>.emitApiResponse(request: suspend () -> Response<T>) {
         emit(ResultResponse.Loading)
 
         val apiResponse = executeApi(request)
         emit(apiResponse)
     }
 
-    private suspend fun <T> executeApi(request: suspend () -> Response<T>): ApiResponse<T> {
+    private suspend fun <T> executeApi(request: suspend () -> Response<T>): ResultResponse<T> {
 
         val response: ApiResponse<T> = try {
             create(request())
@@ -31,55 +31,36 @@ abstract class ApiExecutor {
         }
 
         return when (response) {
-            is ApiResponse.SuccessResponse -> ApiResponse.SuccessResponse(response.body)
-            is ApiResponse.ErrorResponse -> ApiResponse.ErrorResponse(response.code, response.message)
+            is ApiResponse.SuccessResponse -> ResultResponse.Success(response.body)
+            is ApiResponse.ErrorResponse -> ResultResponse.Error(response.code, response.message)
         }
     }
 
     private fun <T> create(error: Throwable): ApiResponse.ErrorResponse<T> =
-         when (error) {
-            is UnknownHostException, is ConnectException, is SocketException -> ApiResponse.ErrorDisconnected
-            is JsonDataException, is JSONException -> ApiResponse.ErrorParse
-            is TimeoutException, is SocketTimeoutException -> ApiResponse.ErrorTimeOut
-            else -> HttpStatusCode.ErrorUnKnown
+        when (error) {
+            is UnknownHostException, is ConnectException, is SocketException ->
+                ApiResponse.ErrorResponse(ThrowableCode.ERROR_DISCONNECTED.code, error.message)
+            is JsonDataException, is JSONException ->
+                ApiResponse.ErrorResponse(ThrowableCode.ERROR_PARSE.code, error.message)
+            is TimeoutException, is SocketTimeoutException ->
+                ApiResponse.ErrorResponse(ThrowableCode.ERROR_TIME_OUT.code, error.message)
+            else -> ApiResponse.ErrorResponse(ThrowableCode.ERROR_UNKNOWN.code, error.message)
         }
 
     private fun <T> create(response: Response<T>): ApiResponse<T> {
-        return if (response.isSuccessful) {
-            if (response.code() == HttpStatusCode.Created.code)
-                ApiResponse.SuccessResponse(response.body())
-            else ApiResponse.ErrorResponse(response.getApiError().code, response.message())
-        } else {
-            if (response.code() == HttpStatusCode.Unauthorized.code) {
+        return when (response.code()) {
+            HttpStatusCode.Created.code, HttpStatusCode.Success.code -> ApiResponse.SuccessResponse(response.body())
+            HttpStatusCode.Unauthorized.code -> {
+                var errorResponse: JResponseError? = null
                 val errorBytes = response.errorBody()?.bytes()
                 if (errorBytes != null) {
                     val errorContent = String(errorBytes)
-
                     val jsonAdapter = Moshi.Builder().build().adapter(JResponseError::class.java)
-                    val errorResponse = jsonAdapter.fromJson(errorContent)
-                    if (errorResponse != null)
-                        ApiResponse.ErrorResponse(
-                            response.getApiError().code,
-                            errorResponse.detail.orEmpty()
-                        )
-                    else {
-                        ApiResponse.ErrorResponse(
-                            response.getApiError().code,
-                            response.message()
-                        )
-                    }
-                } else {
-                    ApiResponse.ErrorResponse(
-                        response.getApiError().code,
-                        response.message()
-                    )
+                    errorResponse = jsonAdapter.fromJson(errorContent)
                 }
-            } else
-                ApiResponse.ErrorResponse(
-                    response.getApiError().code,
-                    response.message()
-                )
-
+                ApiResponse.ErrorResponse(response.code(), errorResponse?.detail ?: response.message())
+            }
+            else -> ApiResponse.ErrorResponse(response.code(), HttpStatusCode.fromInt(response.code()).name)
         }
     }
 }

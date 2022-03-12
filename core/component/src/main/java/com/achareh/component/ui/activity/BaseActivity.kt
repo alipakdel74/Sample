@@ -1,4 +1,4 @@
-package com.achareh.component.ui.fragment
+package com.achareh.component.ui.activity
 
 import android.content.Context
 import android.os.Bundle

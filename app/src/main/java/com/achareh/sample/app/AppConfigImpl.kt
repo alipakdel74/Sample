@@ -6,5 +6,5 @@ import com.achareh.sample.BuildConfig
 class AppConfigImpl: AppConfig {
     override fun isDebug() = BuildConfig.DEBUG
 
-    override fun getBaseUrl() = BuildConfig.BUILD_TYPE
+    override fun getBaseUrl() = BuildConfig.BASE_URL
 }

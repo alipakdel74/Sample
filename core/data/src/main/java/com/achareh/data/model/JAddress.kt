@@ -14,8 +14,10 @@ data class JAddress(
     val lat: Double,
     val lng: Double,
     val coordinate_mobile: String,
-    val coordinate_phone_number: String
-)
+    val coordinate_phone_number: String,
+) {
+    fun fullName() = first_name.plus(" ").plus(last_name)
+}
 
 
 

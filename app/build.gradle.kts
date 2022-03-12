@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId = "com.achareh.sample"
 
-        buildConfigField("String", "BASE_URL", "\"https://stage.achareh.ir/api/karfarmas/address\"")
+        buildConfigField("String", "BASE_URL", "\"https://stage.achareh.ir/\"")
     }
 }
 

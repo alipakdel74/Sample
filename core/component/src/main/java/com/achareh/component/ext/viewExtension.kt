@@ -1,4 +1,4 @@
-package com.achareh.component.ui.ext
+package com.achareh.component.ext
 
 import androidx.fragment.app.Fragment
 
