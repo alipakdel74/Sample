@@ -62,6 +62,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>() {
 
     private fun observeCreateAddress() = vm.createAddress.handleResponse(
         onSuccess = {
+            progress.dismiss()
             findNavController().navigate(R.id.addressFragment, null, popUpTo(R.id.nav_main))
         },
         retryErrorConnection = {
